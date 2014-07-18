@@ -1,0 +1,42 @@
+import Control.Monad (unless)
+import Data.Monoid ((<>))
+import Development.Shake
+import Development.Shake.Command
+import Development.Shake.FilePath
+import Development.Shake.Rule
+import Development.Shake.Util
+
+
+srcDir,buildDir,cabalDir,genDir,outDir :: FilePath
+srcDir   = "src"
+buildDir = "build"
+cabalDir = buildDir </> "dist"
+genDir   = buildDir </> "gen-sources"
+outDir   = buildDir </> "output"
+
+cabalFile,presFile,makeTeXSourceFile,teXSourceFile :: FilePath
+cabalFile         = "presthesis.cabal"
+teXSourceFile     = genDir </> "main.tex"
+presFile          = outDir </> "main.pdf"
+makeTeXSourceFile = cabalDir </> "build/createPaper/createPaper"
+
+
+main :: IO ()
+main = shakeArgs shakeOptions{shakeFiles=buildDir </> ".shakefiles"} $ do
+  want [presFile]
+
+  phony "clean" $ do
+    removeFilesAfter buildDir ["//*"]
+
+  presFile *> \_ -> do
+    need [teXSourceFile]
+    cmd "pdflatex" ("-output-directory=" <> outDir) teXSourceFile
+
+  teXSourceFile *> \f -> do
+    need [makeTeXSourceFile]
+    cmd makeTeXSourceFile f
+
+  makeTeXSourceFile *> \f -> do
+    sources <- getDirectoryFiles srcDir ["//*hs","//*.tex"]
+    need $ cabalFile : (fmap (srcDir </>) sources)
+    cmd "cabal" ("--builddir=" <> cabalDir) "build"

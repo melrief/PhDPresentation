@@ -1,0 +1,18 @@
+Name:           phdthesispres
+Version:        0.1
+License:        GPL-3
+Author:         Mario Pastorelli
+Maintainer:     pastorelli.mario@gmail.com
+Build-Type:     Simple
+Cabal-version:  >=1.2
+
+Executable createPaper
+    Main-is:        Main.hs
+    ghc-options:    -Wall
+    build-depends:  base
+                   ,containers
+                   ,filepath
+                   ,HaTeX
+                   ,process
+                   ,text
+    hs-source-dirs: src

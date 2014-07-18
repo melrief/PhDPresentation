@@ -3,6 +3,8 @@
 This is the source code of the presentation of my Ph.D. defense. It is
 written in *Haskell* and uses the [HaTeX](https://github.com/Daniel-Diaz/HaTeX)
 library to generate the *LaTeX* code of both the style file and the presentation file.
+The presentation produced by this project can be seen on
+[SlideShare](http://www.slideshare.net/melrief/main-37100263).
 
 
 ## Dependencies

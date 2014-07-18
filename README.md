@@ -29,10 +29,10 @@ this will create a directory *build/* with three subdirectories:
 
 The important files that the *Shakefile* creates are:
 
+- **build/output/main.pdf** the presentation file
 - **build/dist/build/createPaper/createPaper** the executable that when run creates the *LaTeX* source code
 - **build/gen-sources/main.tex** and **build/gen-sources/mainStyle.tex** the generated one-line *LaTeX* source code of the presentation and the style. Sadly, the source code generate is in one-line and without spacing, so in the same directory there are also two alternative files called *mainPretty.tex* and *mainStylePretty.tex* that should be easier to read. The reason why we generate both is that *HaTeX* doesn't guarantee that the output of the pretty printing is correct.
-- **build/output/main.pdf** the presentation file
-                          * 
+
 
 ## Source Code Organization
 
